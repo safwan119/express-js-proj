@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%=title%></h1>
+    <p><%=message%></p>
+    <%let users = [
+    {
+        name: "Muhammad Safwan",
+        city: "Bahawalpur",
+        age: 20
+    },
+    {
+        name: "Muhammad Taha",
+        city: "Lahore",
+        age: 22
+    },
+    {
+        name: "Muhammad Zohaib",
+        city: "Islamabad",
+        age: 21
+    },
+    {
+        name: "Ali Raza",
+        city: "Karachi",
+        age: 23
+    },
+    {
+        name: "Ahmed Khan",
+        city: "Multan",
+        age: 19
+    }
+];%>
+    <%users.forEach(user => {%>
+        <table border="1">
+            <tr>
+                <td><%=user.name %> </td>
+                <td><%=user.age %> </td>
+                <td><%=user.city %></td>
+            </tr>
+        </table>
+   <% });%> 
+</body>
+</html>

@@ -1,0 +1,16 @@
+<%- include('header')%>
+    <div class="row">
+        <div class="col">
+            <form action="/submit" method="POST">
+          Enter name:<input type="text" name="myName">
+    <br><br>
+    <input type="submit">
+        </form>
+        </div>
+    </div>
+    <%if(message){%>
+    <div class="row">
+       <%=message%>
+    </div>
+    <br><br><%}%>
+    <%- include('footer') %>
