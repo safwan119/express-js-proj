@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-// Define Schema
+// Define Schema of contact for saving data in mongoDb
 const contactSchema = mongoose.Schema({
   first_name: {
     type: String
@@ -22,7 +22,7 @@ const contactSchema = mongoose.Schema({
     type: String
   }
 });
-//login schema
+//login schema of mongoDb
 const loginSchema=new mongoose.Schema({
 username:{
   type:String,
@@ -40,5 +40,5 @@ password:{
 
 // const contact = mongoose.model("Contact", contactSchema);
 const loginData=mongoose.model('userData',loginSchema);
-
+//here we export the schema data 
 export default loginData;

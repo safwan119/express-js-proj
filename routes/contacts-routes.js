@@ -34,22 +34,26 @@ import {
   homePage,
 } from "../controller/contacts-controller.js"
 import { error } from "console";
+//form validation using express validator package 
 const formvalidation=[
   body('username').notEmpty().withMessage('Username is required').isAlpha().withMessage('User name must be alphabetic').isLength({min:3}).withMessage('Username length must be greater than 3').trim(),
   body('email').isEmail().withMessage('Email must be valid').normalizeEmail(),
   body('phone').isMobilePhone().withMessage('Phone number must be valid'),
   body('address').notEmpty().withMessage('Address is required').isUppercase().withMessage('Address must be in upper case'),
 ];
+//using multer store file in any of the selected folder
 const storage=multer.diskStorage({
 destination:(req,file,cb)=>{
   cb(null,'./upload')
 },
+//file name
 filename:(req,file,cb)=>{
    const newFileName=Date.now()+path.extname(file.originalname);
   cb(null,newFileName)
 },
 
 });
+//file filter that which file should accepted or this one not 
 const fileFilter=(req,file,cb)=>{
  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
 cb(null,true);
@@ -57,6 +61,7 @@ cb(null,true);
   cb(new Error('only image are allowed which is in the form of png or jpeg',false))
 }
 }
+//upload variable that is used for uploading any of the file which user is currently select
 const upload=multer({
   storage:storage,
   limits:{
@@ -90,11 +95,13 @@ router.use((error, req, res, next) => {
 
   next();
 });
+//use session
 router.use(session({
 secret:'secrate-data',
 cookie:{maxAge:1000*60*60*24},
 resave:false,
 saveUninitialized:false,
+//this will used for store session in mongodb
 store:mongo.create({mongoUrl:'mongodb://127.0.0.1:27017/login-db'})
 }));
 const checkLogin = (req, res, next) => {

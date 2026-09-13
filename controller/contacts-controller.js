@@ -92,6 +92,7 @@ res.render("500-error",{message:e});
   }
 
 };
+//form validation check
 export const formvalidationCheck = (req, res) => {
 
   const errors = validationResult(req);
@@ -115,6 +116,7 @@ export const formvalidations = (req, res) => {
   });
 
 };
+//upload file to selected folder
 export const fileUploading = (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file selected');
@@ -126,6 +128,7 @@ export const fileUploading = (req, res) => {
         file: req.file
     });
 };
+//destroy session
 export const destroySession=(req,res)=>{
  req.session.destroy((err)=>{
   if(err){
@@ -135,12 +138,14 @@ export const destroySession=(req,res)=>{
   }
  })
 };
+//get session data
 export const getSessionData=(req,res)=>{
   if(req.session.name){
    return res.send(`Session data is :${req.session.name}`)
   }
   res.send('Session data not found');
 };
+//set session data 
 export const setSesstionData=(req,res)=>{
   req.session.name='Muhammad Safwan';
   res.send(`Session created successfully and data is ${req.session.name}`);
@@ -151,7 +156,7 @@ export const loginPage = (req, res) => {
   });
 };
 
-
+//register user code
 export const register = async (req, res) => {
 
   try {
@@ -165,9 +170,9 @@ export const register = async (req, res) => {
         error: 'Username already exists'
       });
     }
-
+ //hash password
     const hashPassword = await bcrypt.hash(password, 10);
-
+ //save to mongodb
     await Contacts.create({
       username,
       password: hashPassword
@@ -194,7 +199,7 @@ export const registerPage = (req, res) => {
   res.render('register');
 };
 
-
+//login user
 export const loginUser = async (req, res) => {
 
   const { username, password } = req.body;
@@ -207,12 +212,12 @@ export const loginUser = async (req, res) => {
       error: 'Invalid username/password'
     });
   }
-
+//compare hashpassword and current password set by user 
   const isMatch = await bcrypt.compare(
     password,
     user.password
   );
-
+//is same then login is different then  go to login
   if (!isMatch) {
     return res.render('login', {
       error: 'Invalid username/password'
@@ -257,6 +262,7 @@ export const processPost=(req, res) => {
   );
 
 };
+//here we set the csruf value to input method 
 export const getForm=(req, res) => {
 
   res.render('csurf-check', {
@@ -264,12 +270,14 @@ export const getForm=(req, res) => {
   });
 
 };
+//remove cookei
 export const removeCookie=(req, res) => {
 
   res.clearCookie('myName');
 
   res.send('The value of cookie removed successfully');
 };
+//get cookei value
 export const getCookieValue= (req, res) => {
 
   if (!req.cookies.myName) {
@@ -281,7 +289,7 @@ export const getCookieValue= (req, res) => {
   );
 
 };
-
+//set cookei value 
 export const setCookeiValue=(req, res) => {
 
   res.cookie('myName', 'Muhammad Safwan', {
